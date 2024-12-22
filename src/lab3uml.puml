@@ -1,0 +1,158 @@
+@startuml
+abstract class Furniture{
++Furniture(FurnitureType, Materials)
+# material: Materials
+# final size: FurnitureType
+# type: FurnitureType
+
+}
+
+enum FurnitureType{
+CHAIR
+BED
+WARDROBE
+TABLE
+SOFA
+- type: String
+getType(): String
+getSize(): int
+}
+
+Furniture <|-- Chair
+Furniture <|-- Bed
+Furniture <|-- Wardrobe
+Furniture <|-- Sofa
+Furniture <|-- Table
+
+class Chair{
++Chair(FurnitureType, Materials)
++toString(): String
++equals(Object): boolean
++hashCode(): int
+}
+class Bed{
++Bed(FurnitureType, Materials)
++toString(): String
++equals(Object): boolean
++hashCode(): int
+}
+class Table{
++Table(FurnitureType, Materials)
++toString(): String
++equals(Object): boolean
++hashCode(): int
+}
+class Sofa{
++Sofa(FurnitureType, Materials)
++toString(): String
++equals(Object): boolean
++hashCode(): int
+}
+class Wardrobe{
++Wardrobe(FurnitureType, Materials)
+-details[]: DetailsWardrobe
++toString(): String
++equals(Object): boolean
++hashCode(): int
++getDetails(): DetailsWardrobe
+}
+
+enum DetailsWardrobe{
+SHELF
+TRAY
+DOORS
+}
+
+
+interface Squeez{
++squeeze(Materials): Condition
+}
+interface PopOut{
++popout(Condition, FurnitureType): Furniture
+}
+
+
+class Machine{
++Machine(Material, FurnitureType, Condition)
++Machine(Material, DetailsWardrobe, Condition)
++typeOfProduction: FurnitureType
++typeOfMaterial: Material
++typeOfDetail: Details
++conditionOfMaterial: Condition
++popout(PlasticType, FurnitureType)
++squeeze(PlasticType)
++toString(): String
++equals(Object): boolean
++hashCode(): int
+}
+
+Machine <|.. Squeez
+Machine <|.. PopOut
+
+
+enum Condition{
+USUAL
+SQUEEZED
+PRODUCTION
+-condition: String
+Type(): String
+}
+
+
+enum Materials{
+WOOD
+PLASTIC
+METAL
+-material: String
++getMaterial(): String
+}
+
+note "в поле PLASTIC передаём Plastics" as n1
+n1 .. Materials
+
+
+enum Plastics {
+WOODPLASTIC
+METALPLASTIC
+DEFAULT
+-plastic: String
+Type(): String
+}
+
+class Material{
++Material(Materials, FurnitureType)
+}
+
+note "потомки - recordMaterial - record" as n2
+n2..Material
+
+Material <|-- Plastic
+
+class Plastic {}
+
+Exception <|-- UnsupportedMaterialException
+class UnsupportedMaterialException{
++UnsupportedMaterialException(String)
+}
+
+class Factory{
++Factory(FurnitureType, Material, Condition)
++produceChair(Material, FurnitureType, Condition): Chair
++produceBed(Material, FurnitureType, Condition): Bed
++produceTable(Material, FurnitureType, Condition): Table
++produceWardrobe(Material, FurnitureType, Condition): DetailsWardrobe
++produceSofa(Material, FurnitureType, Condition): Sofa
+}
+
+class Story{
++Story(Plastic plastic, FurnitureType furniture, Materials material): void
++process(Plastic: material, FurnitureType: furniture1, FurnitureType: furniture2, FurnitureType: furniture3): void
++detailedProcess(FurnitureType: furniture1, FurnitureType: furniture2): void
++plasticDescription(Plastic: plastic, Plastic: plasticColor): void
++wardrobeCreation(Wardrobe: furniture): void
++woodplasticDespriction(Plastic: plastic, Materials: material): void
++metalplasticDespriction(Plastic: plastic, Materials: material): void
+}
+
+@enduml
+
