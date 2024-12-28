@@ -1,0 +1,147 @@
+@startuml
+abstract class Furniture{
++Furniture(furniture: FurnitureType, material: MaterialType)
+# material: MaterialType
+# final size: FurnitureType
+# type: FurnitureType
+
+}
+
+enum FurnitureType{
+CHAIR
+BED
+WARDROBE
+TABLE
+SOFA
+- type: String
+getType(): String
+getSize(): int
+}
+
+Furniture <|-- Chair
+Furniture <|-- Bed
+Furniture <|-- Wardrobe
+Furniture <|-- Sofa
+Furniture <|-- Table
+
+class Chair{
++Chair(type: FurnitureType, material: MaterialType)
++toString(): String
++equals(o: Object): boolean
++hashCode(): int
+}
+class Bed{
++Bed(type: FurnitureType, material: MaterialType)
++toString(): String
++equals(o: Object): boolean
++hashCode(): int
+}
+class Table{
++Table(type: FurnitureType, material: MaterialType)
++toString(): String
++equals(o: Object): boolean
++hashCode(): int
+}
+class Sofa{
++Sofa(type: FurnitureType, material: MaterialType)
++toString(): String
++equals(o: Object): boolean
++hashCode(): int
+}
+class Wardrobe{
++Wardrobe(type: FurnitureType, material: MaterialType)
++toString(): String
++equals(o: Object): boolean
++hashCode(): int
+}
+
+
+interface Squeez{
++squeeze(typeOfMaterial: MaterialType, typeOfProduction: FurnitureType): Condition
+}
+interface PopOut{
++popout(condition: Condition): Condition
+}
+
+
+class Machine{
++Machine(material: MaterialType, furniture: FurnitureType)
++isBusy: boolean
++typeOfProduction: FurnitureType
++typeOfMaterial: MaterialType
++popout(condition: Condition): Condition
++squeeze(typeOfMaterial: MaterialType,typeOfProduction: FurnitureType): Condition
+-checkMaterial(typeOfMaterial: MaterialType): boolean
++toString(): String
++equals(o: Object): boolean
++hashCode(): int
+}
+
+Machine <|.. Squeez
+Machine <|.. PopOut
+
+
+enum Condition{
+USUAL
+SQUEEZED
+Condition(condition: String)
+-condition: String
++getCondition(): String
+}
+
+
+enum MaterialType{
+WOOD
+PLASTIC
+METAL
+Plastic
+Condition
++MaterialType(material: String)
+-material: String
++getMaterial(): String
+}
+
+note "в поле PLASTIC передаём Plastics" as n1
+n1 .. MaterialType
+
+
+enum Plastic {
+WOODPLASTIC
+METALPLASTIC
+PLASTIC
+COLORFULPLASTIC
++Plastic(plastic: String)
+-plastic: String
++getPlastic(): String
+}
+
+class Material{
++Material(material: MaterialType, furniture: FurnitureType)
+}
+
+
+Material <|-- Plastic
+
+class Plastic {}
+
+Exception <|-- UnsupportedMaterialException
+class UnsupportedMaterialException{
++UnsupportedMaterialException(material: MaterialType)
++getMessage(): String
+}
+
+class Factory{
++Factory(type: FurnitureType, material: MaterialType)
+type: FurnitureType
+material: MaterialType
+machines: ArrayList<Machine>
++produceChair(type: FurnitureType, material: MaterialType): Chair
++produceBed(type: FurnitureType, material: MaterialType): Bed
++produceTable(type: FurnitureType, material: MaterialType): Table
++produceWardrobe(type: FurnitureType, material: MaterialType): DetailsWardrobe
++produceSofa(type: FurnitureType, material: MaterialType): Sofa
+}
+
+
+@enduml
+
